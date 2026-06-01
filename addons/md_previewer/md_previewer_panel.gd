@@ -1,6 +1,8 @@
 @tool
 extends Control
+class_name Markdown_Preview_Panel
 
+var panels:Array[String] =[];
 ## Markdown Previewer Panel
 ## Manages multiple MD file tabs, renders BBCode, and async-loads images.
 
@@ -116,6 +118,10 @@ func _add_empty_tab() -> void:
 
 
 # ── File Loading ──────────────────────────────────────────────────────────────
+func _load_files(paths: Array[String]) -> void:
+	for i in paths:
+		if (i.length() >= 1):
+			_load_file(i);
 
 func _load_file(path: String) -> void:
 	if not FileAccess.file_exists(path):
@@ -161,6 +167,7 @@ func _load_file(path: String) -> void:
 
 	_render_tab(target_idx)
 	_refresh_toolbar()
+	panels.append(path);
 
 
 func _render_tab(tab_idx: int) -> void:
@@ -579,6 +586,7 @@ func _close_tab(idx: int) -> void:
 	var child := tab_container.get_child(idx)
 	tab_container.remove_child(child)
 	child.queue_free()
+	panels.erase(tab_data[idx].get("path"));
 	tab_data.remove_at(idx)
 	if not tab_container.tab_changed.is_connected(_on_tab_changed):
 		tab_container.tab_changed.connect(_on_tab_changed)
