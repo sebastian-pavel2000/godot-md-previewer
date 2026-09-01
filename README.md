@@ -1,21 +1,25 @@
 # Godot MD Previewer
-**Version:** 1.2.0 | **Author:** Sebastian Pavel | **Godot:** 4.4+
+
+**Version:** 1.3.0 | **Author:** Sebastian Pavel | **Godot:** 4.4+
 
 A lightweight Markdown previewer addon for **Godot 4.4+** that renders `.md` files directly inside the editor, with multi-tab support, auto-reload, and image rendering.
 
-![Godot 4.4](https://img.shields.io/badge/Godot-4.4%2B-blue) ![License](https://img.shields.io/badge/license-MIT-green) ![Pure GDScript](https://img.shields.io/badge/pure-GDScript-orange) ![Version](https://img.shields.io/badge/version-1.2.0-purple)
+![Godot 4.4](https://img.shields.io/badge/Godot-4.4%2B-blue) ![License](https://img.shields.io/badge/license-MIT-green) ![Pure GDScript](https://img.shields.io/badge/pure-GDScript-orange) ![Version](https://img.shields.io/badge/version-1.3.0-purple)
 
 ## Features
+
 - 📂 Open any `.md` file from your filesystem via file dialog
 - 🗂️ Multiple files open in tabs simultaneously
 - 💾 Tab session persistence — open tabs and active tab are restored between editor sessions
 - 🔄 Auto-reloads if the file changes on disk (every 2 seconds)
 - 🔁 Manual reload button
 - 🖼️ Local and external image rendering (PNG, JPG, WebP, BMP) with auto-retry
+- 📊 Table rendering
 - 🔍 Selectable text
 - No external dependencies, only GDScript, uses `RichTextLabel` + BBCode
 
 ## Supported Markdown
+
 | Syntax | Rendered as |
 |--------|-------------|
 | `# H1` `## H2` `### H3` `#### H4` | Colored, sized headers |
@@ -31,19 +35,23 @@ A lightweight Markdown previewer addon for **Godot 4.4+** that renders `.md` fil
 | `---` | Horizontal rule |
 | `[text](url)` | Styled link text |
 | `![alt](path)` | Local and external images |
+| `\| col \| col \|` | Table (zebra-striped rows) |
 
 ## Known Limitations
-- Tables are not rendered (shown as raw text) — coming in a future update
+
+- Table cells render without visible grid lines — Godot's `[table]` BBCode tag has no border support, so rows are zebra-striped for readability instead
 - Links are styled but not clickable in the editor context
 - GIF images are not supported — Godot 4 has no native GIF decoder
 - External images over HTTPS may show TLS errors in the Godot console on first load — this is a [known Godot engine limitation](https://github.com/godotengine/godot/issues/101910). The plugin retries automatically and images will load within a few seconds
 
 ## Installation
+
 1. Copy the `md_previewer/` folder into your project's `addons/` directory
 2. In Godot: **Project → Project Settings → Plugins** → enable **Markdown Previewer**
 3. The **MD Preview** tab appears in the bottom panel
 
 ## Usage
+
 | Action | How |
 |--------|-----|
 | Open a file | Click **📂 Open File** |
@@ -55,6 +63,7 @@ A lightweight Markdown previewer addon for **Godot 4.4+** that renders `.md` fil
 | Session restore | Open tabs are automatically saved and restored when you reopen the project |
 
 ## File Structure
+
 ```
 addons/md_previewer/
 ├── plugin.cfg              # Addon metadata
@@ -66,6 +75,10 @@ addons/md_previewer/
 ```
 
 ## Changelog
+
+**v1.3.0**
+- Added table rendering support (zebra-striped rows via Godot's `[table]` BBCode)
+
 **v1.2.0**
 - Added tab session persistence — open tabs and active tab are now saved and restored between editor sessions (thanks [@binarie0](https://github.com/binarie0)!)
 
@@ -76,4 +89,5 @@ addons/md_previewer/
 - Initial release
 
 ## License
+
 MIT
